@@ -1,0 +1,80 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# React Native / Metro
+.metro-health-check*
+*.jsbundle
+
+# Android
+*.apk
+*.aab
+*.keystore
+*.jks
+!debug.keystore
+.gradle/
+local.properties
+**/android/app/build/
+**/android/build/
+**/android/.cxx/
+*.hprof
+
+# iOS (not a target, ignored just in case)
+**/ios/Pods/
+**/ios/build/
+*.xcuserstate
+
+# Environment and secrets: never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.p8
+*.p12
+*.key
+*.mobileprovision
+google-services.json
+service-account*.json
+credentials.json
+.clasprc.json
+
+# Supabase local
+supabase/.branches/
+supabase/.temp/
+supabase/.env
+
+# Real financial data: never commit
+docs/samples/raw/
+*.private.*
+
+# Tests and coverage
+coverage/
+*.lcov
+
+# TypeScript
+*.tsbuildinfo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Editors and OS
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Claude Code local settings
+.claude/settings.local.json
