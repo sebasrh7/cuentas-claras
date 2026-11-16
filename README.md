@@ -4,7 +4,7 @@
 
 App personal de finanzas para Android que registra los movimientos sola, leyendo las notificaciones de las apps bancarias, y muestra cuánto queda realmente en cada bolsillo del presupuesto.
 
-> **Estado:** en construcción. Fase 0 (setup del repositorio) completada. Todavía no hay app instalable.
+> **Estado:** en construcción. Producto definido; en curso la prueba de concepto de la captura de notificaciones. Todavía no hay app instalable.
 
 ## El problema
 
@@ -29,7 +29,8 @@ Expo (React Native) con development build, TypeScript estricto y Supabase (Postg
 | Fase | Entregable | Estado |
 | --- | --- | --- |
 | 0 | Setup del repositorio | Hecho |
-| 1 | [Descubrimiento de producto](docs/01-producto.md) | En revisión |
+| 1 | [Descubrimiento de producto](docs/01-producto.md) | Hecho |
+| 1.5 | Prueba de concepto: captura de notificaciones | En curso |
 | 2 | UX: navegación y flujos | Pendiente |
 | 3 | Diseño de interfaz y prototipo navegable | Pendiente |
 | 4 | Arquitectura técnica | Pendiente |
@@ -53,7 +54,7 @@ Este repositorio es público y no contiene datos financieros reales. Los ejemplo
 
 Personal finance app for Android that records transactions on its own by reading banking app notifications, and shows how much is really left in each budget pocket.
 
-> **Status:** work in progress. Phase 0 (repository setup) is complete. There is no installable app yet.
+> **Status:** work in progress. Product is defined; the notification capture proof of concept is under way. There is no installable app yet.
 
 ## The problem
 
@@ -78,7 +79,8 @@ Expo (React Native) with a development build, strict TypeScript and Supabase (Po
 | Phase | Deliverable | Status |
 | --- | --- | --- |
 | 0 | Repository setup | Done |
-| 1 | [Product discovery](docs/01-producto.md) (Spanish) | In review |
+| 1 | [Product discovery](docs/01-producto.md) (Spanish) | Done |
+| 1.5 | Proof of concept: notification capture | In progress |
 | 2 | UX: navigation and flows | Pending |
 | 3 | UI design and navigable prototype | Pending |
 | 4 | Technical architecture | Pending |
