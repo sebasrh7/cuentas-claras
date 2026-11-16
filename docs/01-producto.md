@@ -1,6 +1,6 @@
 # Fase 1 — Descubrimiento de producto
 
-- **Estado:** en revisión
+- **Estado:** aprobado
 - **Fecha:** 2026-11-16
 
 ## 1. Problema
@@ -21,8 +21,9 @@ Un solo usuario: yo.
 | Aspecto | Descripción |
 | --- | --- |
 | Perfil | Desarrollador frontend, cómodo con la tecnología y con instalar un APK por fuera de la tienda |
-| Cuentas | Bancolombia, Nu y Nequi, más algo de efectivo |
-| Dispositivo | Un teléfono Android personal |
+| Cuentas | Bancolombia (cuenta débito, donde llegan los ingresos), Nu (cuenta débito, tarjeta de crédito y cajitas), Nequi (cuenta) y algo de efectivo |
+| Ingresos | Quincenales, en la cuenta débito de Bancolombia |
+| Dispositivo | Xiaomi Redmi Note 14 con Android 16 (HyperOS) |
 | Comportamiento | Paga casi todo de forma digital, no registra gastos a mano, consulta saldos en la app de cada banco |
 | Necesidad | Saber en segundos cuánto queda en cada bolsillo, sin trabajo manual |
 | Lo que no tolera | Digitar cada gasto, entregar credenciales bancarias a terceros, pagar por la herramienta |
@@ -81,8 +82,9 @@ Como usuario, quiero registrar mis cuentas (Bancolombia, Nu, Nequi y efectivo), 
 
 **Criterios de aceptación**
 
-- [ ] Puedo crear, editar y archivar cuentas con nombre, banco y tipo.
-- [ ] Puedo indicar un saldo inicial por cuenta.
+- [ ] Puedo crear, editar y archivar cuentas con nombre, banco y tipo: débito, crédito o efectivo.
+- [ ] Puedo indicar un saldo inicial por cuenta. En una cuenta de crédito, el saldo representa lo que debo.
+- [ ] Un mismo banco puede tener varias cuentas (por ejemplo, Nu débito y Nu tarjeta de crédito).
 - [ ] Existe una cuenta de tipo efectivo.
 - [ ] La app no pide ni guarda usuarios, claves ni números de cuenta completos; como máximo, los últimos dígitos para identificar la cuenta en las notificaciones.
 - [ ] Una cuenta archivada conserva su historial y deja de aparecer en los formularios.
@@ -127,6 +129,9 @@ Como usuario, quiero que la app me guíe paso a paso para conceder los permisos 
 - [ ] Guía el paso "Permitir ajustes restringidos", necesario por instalar el APK fuera de la tienda.
 - [ ] Lleva a la pantalla del sistema para conceder el acceso a notificaciones y detecta si quedó concedido al volver.
 - [ ] Guía la exclusión de la optimización de batería y detecta si quedó aplicada.
+- [ ] En teléfonos Xiaomi (HyperOS) guía además tres pasos propios del fabricante: activar el inicio automático de la app, dejar su ahorro de batería sin restricciones y, como paso opcional, bloquear la app en la pantalla de recientes.
+- [ ] Los pasos de HyperOS usan los nombres exactos de las opciones tal como aparecen en el teléfono, verificados en la Fase 1.5.
+- [ ] Los pasos que el sistema no permite comprobar desde la app se marcan como listos con mi confirmación manual.
 - [ ] Pide el permiso para mostrar notificaciones propias (alertas de bolsillo).
 - [ ] Cada paso muestra su estado (pendiente o listo) y puedo retomar el onboarding desde los ajustes.
 
@@ -210,6 +215,9 @@ Como usuario, quiero que mover plata entre mis propias cuentas se reconozca como
 
 - [ ] Una salida de una cuenta mía y una entrada por el mismo monto en otra cuenta mía, dentro de una ventana corta, se enlazan como transferencia interna.
 - [ ] Una transferencia interna no descuenta de ningún bolsillo ni se ofrece para repartir como ingreso.
+- [ ] El pago de la tarjeta de crédito Nu, hecho desde Nu débito o desde Bancolombia (incluido por PSE), es un movimiento interno: reduce la deuda de la tarjeta y no cuenta como gasto. El gasto ya se contó en cada compra.
+- [ ] Mover plata hacia o desde una cajita de Nu (o un bolsillo o colchón de Nequi) es un movimiento interno dentro del mismo banco, aunque el banco envíe un solo aviso.
+- [ ] Si de un pago de tarjeta o de un movimiento de cajita solo llega una parte y no se puede confirmar qué es, va a "por revisar".
 - [ ] En el historial aparece como un solo movimiento con cuenta de origen y de destino.
 - [ ] Si hay más de un candidato para emparejar, no se decide en automático: va a "por revisar".
 - [ ] Puedo enlazar a mano dos movimientos como transferencia interna y deshacer un enlace automático.
@@ -226,8 +234,11 @@ Como usuario, quiero definir mis bolsillos y cuánto le corresponde a cada uno, 
 
 - [ ] La app propone cuatro bolsillos iniciales: Fijos y servicios, Suscripciones, Ahorro, y Libre y ocio.
 - [ ] Puedo crear, renombrar, reordenar y archivar bolsillos.
-- [ ] Cada bolsillo tiene una regla de reparto por defecto: porcentaje del ingreso o monto fijo.
-- [ ] La app avisa si los porcentajes suman más de 100 %.
+- [ ] El periodo de los bolsillos es la quincena de calendario: del 1 al 15 y del 16 al último día del mes.
+- [ ] Cada bolsillo tiene una regla de reparto: monto fijo por quincena o porcentaje del resto. Por defecto, Fijos y Suscripciones usan monto fijo, y Ahorro y Libre se reparten por porcentaje lo que queda después de los montos fijos.
+- [ ] La app avisa si los porcentajes del resto no suman 100 %.
+- [ ] Cada bolsillo define qué pasa con lo que sobra al cerrar la quincena: acumularlo para la siguiente (opción por defecto) o enviarlo a Ahorro.
+- [ ] Al configurar los bolsillos por primera vez, reparto entre ellos los saldos actuales de mis cuentas, para empezar con disponibles reales sin esperar al siguiente ingreso.
 
 ### HU-13 — Repartir un ingreso
 
@@ -237,7 +248,10 @@ Como usuario, quiero repartir cada ingreso entre mis bolsillos, para que toda la
 
 **Criterios de aceptación**
 
-- [ ] Al detectarse un ingreso, la app me avisa y propone un reparto según las reglas de cada bolsillo.
+- [ ] Al detectarse un ingreso, la app me avisa y propone un reparto según las reglas de cada bolsillo: primero los montos fijos y luego los porcentajes sobre el resto.
+- [ ] Cada ingreso quincenal se reparte por separado.
+- [ ] Si el ingreso no alcanza para cubrir los montos fijos, la app lo muestra y yo decido cómo ajustar el reparto.
+- [ ] Puedo marcar un ingreso como reembolso de un gasto: la plata vuelve al bolsillo de ese gasto y no pasa por el reparto.
 - [ ] Puedo ajustar los montos antes de confirmar; la app muestra cuánto falta por asignar.
 - [ ] El reparto solo se puede confirmar cuando la suma asignada es igual al ingreso.
 - [ ] Un ingreso sin repartir queda visible como pendiente en la pantalla principal.
@@ -252,7 +266,10 @@ Como usuario, quiero ver al abrir la app cuánto queda en cada bolsillo, para de
 
 **Criterios de aceptación**
 
-- [ ] La pantalla principal muestra, por bolsillo, lo disponible, lo gastado y lo asignado en el periodo, con una barra de progreso.
+- [ ] La pantalla principal muestra, por bolsillo, lo disponible, lo gastado y lo asignado en la quincena en curso, con una barra de progreso.
+- [ ] Lo disponible de un bolsillo incluye lo acumulado de quincenas anteriores, de modo que Fijos puede juntar entre quincenas para gastos mensuales como los servicios.
+- [ ] Al cerrar la quincena, lo que sobra en cada bolsillo se acumula o se envía a Ahorro, según la configuración del bolsillo.
+- [ ] Una compra con la tarjeta de crédito descuenta del bolsillo en el momento de la compra, igual que una compra con débito.
 - [ ] El saldo total existe, pero no es el dato principal de la pantalla.
 - [ ] Cada gasto descuenta de un bolsillo. Las reglas de categorización (por comercio) asignan el bolsillo en automático.
 - [ ] Un gasto sin regla aplicable cae en un bolsillo por defecto y queda marcado para que yo lo confirme o lo cambie.
@@ -263,11 +280,11 @@ Como usuario, quiero ver al abrir la app cuánto queda en cada bolsillo, para de
 
 - **Milestone:** M5 · **Alcance:** MVP · **Área:** app
 
-Como usuario, quiero recibir una alerta cuando un bolsillo llegue al 80 % y al 100 % de lo asignado, para frenar a tiempo.
+Como usuario, quiero recibir una alerta cuando un bolsillo llegue al 80 % y al 100 % de lo que tenía disponible para la quincena, para frenar a tiempo.
 
 **Criterios de aceptación**
 
-- [ ] Recibo una notificación al cruzar el 80 % y otra al cruzar el 100 % de un bolsillo.
+- [ ] Recibo una notificación al cruzar el 80 % y otra al cruzar el 100 % de un bolsillo. La base es lo disponible al empezar la quincena: lo asignado más lo acumulado.
 - [ ] Cada umbral avisa una sola vez por bolsillo y periodo.
 - [ ] La alerta dice el bolsillo, cuánto se ha gastado y cuánto queda o cuánto se pasó.
 - [ ] Al tocar la alerta se abre el detalle de ese bolsillo.
@@ -338,7 +355,17 @@ El MVP es lo mínimo con lo que puedo usar la app todos los días y responder "�
 | Respaldo por Gmail (HU-18) | M7 | Es una red de seguridad. Conviene medir primero cuánto pierde la captura por notificaciones |
 | Pulido y caso de estudio | M8 | Se hace al cierre |
 
-Este corte es una propuesta. Si prefieres que suscripciones o el respaldo por correo entren al MVP, se ajusta antes de la Fase 2.
+Este corte quedó confirmado el 2026-11-16.
+
+### Fase 1.5: prueba de concepto de la captura
+
+Antes de la Fase 2 se hace un spike en la rama `spike/notification-listener`: un development build mínimo con `NotificationListenerService` que guarda en el teléfono el texto completo de las notificaciones de Bancolombia, Nu y Nequi, y permite exportarlas. Busca tres cosas:
+
+- Validar en el Redmi Note 14 los ajustes restringidos, el inicio automático y el ahorro de batería (R2 y R3).
+- Comprobar si la captura sobrevive con la app cerrada, con la pantalla apagada y después de reiniciar.
+- Recolectar ejemplos reales para `docs/samples/`, que se anonimizan antes de subirlos.
+
+No es código de producción. Lo aprendido se registra en un ADR y actualiza los riesgos R2 y R3.
 
 ### Fuera de alcance
 
@@ -355,8 +382,8 @@ Este corte es una propuesta. Si prefieres que suscripciones o el respaldo por co
 | # | Riesgo | Prob. | Impacto | Mitigación |
 | --- | --- | --- | --- | --- |
 | R1 | Un banco cambia el formato de sus notificaciones y el parser deja de reconocerlas | Alta | Alto | Se guarda siempre el texto crudo; lo no reconocido va a "por revisar" en vez de perderse; parsers aislados por banco con tests sobre ejemplos; los eventos se pueden reprocesar cuando se corrija el parser |
-| R2 | Android detiene el servicio en segundo plano (ahorro de batería, capas del fabricante) | Alta | Alto | Onboarding que guía la exclusión de optimización de batería; pantalla de estado de la captura (HU-07); reconexión al abrir la app; respaldo por correo en M7 |
-| R3 | "Ajustes restringidos" bloquea el acceso a notificaciones para apps instaladas por APK | Alta | Alto | Paso dedicado en el onboarding con instrucciones; se valida en mi teléfono al inicio de M2, antes de construir el resto |
+| R2 | Android detiene el servicio en segundo plano. El teléfono es un Xiaomi con HyperOS, que cierra procesos en segundo plano con más fuerza que Android puro | Alta | Alto | Onboarding que guía la exclusión de optimización de batería y los pasos propios de HyperOS (inicio automático, batería sin restricciones, bloqueo en recientes); pantalla de estado de la captura (HU-07); reconexión al abrir la app; respaldo por correo en M7. **Pendiente de validar en la Fase 1.5** |
+| R3 | "Ajustes restringidos" bloquea el acceso a notificaciones para apps instaladas por APK | Alta | Alto | Paso dedicado en el onboarding con instrucciones. **Pendiente de validar en la Fase 1.5**, antes de diseñar el onboarding |
 | R4 | La notificación no trae todos los datos (sin cuenta, sin comercio, texto recortado) | Media | Medio | Leer el texto expandido de la notificación; lo incompleto va a "por revisar"; el correo puede completar el dato en M7 |
 | R5 | Un banco no envía notificación push para ciertos movimientos | Media | Medio | Verificar con los ejemplos reales qué cubre cada banco; registro manual; respaldo por correo |
 | R6 | Falsos positivos al deduplicar o al emparejar transferencias (dos compras iguales seguidas, dos transferencias del mismo monto) | Media | Alto | Reglas conservadoras; los casos ambiguos van a "por revisar"; todo enlace se puede deshacer; tests de casos límite |
@@ -365,18 +392,19 @@ Este corte es una propuesta. Si prefieres que suscripciones o el respaldo por co
 | R9 | Límites del plan gratuito de Supabase (pausa por inactividad, cuotas) | Baja | Medio | El uso diario mantiene activo el proyecto; el volumen de un solo usuario es mínimo; la cola offline tolera caídas temporales |
 | R10 | Una versión nueva de Android restringe más a los listeners de notificaciones | Media | Alto | Módulo nativo aislado detrás de una interfaz; el respaldo por correo no depende de Android |
 | R11 | El alcance es grande para una sola persona y el proyecto se estanca | Media | Medio | Fases y milestones pequeños con entregables utilizables; MVP recortado a M1–M5 |
+| R12 | Los movimientos hacia cajitas de Nu (o bolsillos y colchón de Nequi) se confunden con gastos o ingresos, o no generan notificación y el saldo de la app se desvía del real | Media | Medio | Tratarlos como movimiento interno del mismo banco (HU-11); recolectar ejemplos reales en la Fase 1.5 para saber qué avisa cada banco; lo ambiguo va a "por revisar"; el saldo de una cuenta se puede ajustar a mano |
+| R13 | El pago de la tarjeta de crédito se cuenta como gasto y duplica lo ya contado en las compras, sobre todo si se paga por PSE desde otro banco y el aviso no deja claro el destino | Media | Alto | Emparejar el pago con el abono en la tarjeta (HU-11); regla específica para pagos a Nu; si solo llega una parte, va a "por revisar" |
+| R14 | Confusión de nombres: "bolsillos" es también un producto de Nequi | Baja | Bajo | En la app, "bolsillo" siempre es el de presupuesto; los productos de los bancos se nombran como cajita o subcuenta |
 
 ## 8. Preguntas abiertas
 
-Necesito estas respuestas para las fases siguientes. Ninguna bloquea la aprobación de este documento.
+Las preguntas iniciales sobre teléfono, productos, ingresos, reparto y alcance quedaron resueltas y están incorporadas en las secciones anteriores. Siguen abiertas:
 
-1. **Teléfono:** ¿qué marca, modelo y versión de Android usas? Define el comportamiento de los ajustes restringidos y del ahorro de batería (R2, R3).
-2. **Productos por banco:** ¿qué tienes en cada uno (cuenta de ahorros, tarjeta de crédito, tarjeta débito)? Si hay tarjeta de crédito, hay que decidir cómo tratar las compras a crédito y el pago de la tarjeta.
-3. **Ingresos:** ¿con qué frecuencia recibes ingresos (mensual, quincenal, variable) y a qué cuenta llegan? Define el periodo de los bolsillos.
-4. **Reparto:** ¿prefieres repartir por porcentaje, por monto fijo o mezclando ambos?
-5. **Notificaciones activas:** ¿tienes activadas las notificaciones push y los correos de alerta en los tres bancos?
-6. **Ejemplos:** cuando puedas, deja en `docs/samples/` ejemplos anonimizados de cada banco (compra, transferencia enviada, transferencia recibida, retiro). Se necesitan a más tardar para M3, pero ayudan desde la Fase 4.
+1. **Nombres de las opciones en HyperOS:** inicio automático, ahorro de batería y bloqueo en recientes. Se verifican en el teléfono durante la Fase 1.5.
+2. **Qué avisa cada banco:** si hay notificación para cada tipo de movimiento, incluidos cajitas y pago de tarjeta. Se responde con los ejemplos de la Fase 1.5.
+3. **Bolsillo en negativo al cerrar la quincena:** si el faltante se arrastra a la siguiente o se cubre desde otro bolsillo. Se decide en la Fase 2.
+4. **Ejemplos:** los ejemplos anonimizados de `docs/samples/` salen del spike de la Fase 1.5.
 
 ## 9. Trazabilidad
 
-Las historias del MVP están creadas como [issues en GitHub](https://github.com/sebasrh7/cuentas-claras/issues?q=label%3Amvp), con el label `mvp`, su milestone y su lugar en el [tablero del proyecto](https://github.com/users/sebasrh7/projects/1). El número del issue coincide con el de la historia: HU-01 es el issue #1 y HU-16 es el #16. Las historias posteriores al MVP (HU-17 y HU-18) se crearán como issues cuando se confirme el alcance.
+Las historias del MVP están creadas como [issues en GitHub](https://github.com/sebasrh7/cuentas-claras/issues?q=label%3Amvp), con el label `mvp`, su milestone y su lugar en el [tablero del proyecto](https://github.com/users/sebasrh7/projects/1). El número del issue coincide con el de la historia: HU-01 es el issue #1 y HU-16 es el #16. Las historias posteriores al MVP tienen el label `post-mvp`: HU-17 es el issue #18 y HU-18 es el #19.
