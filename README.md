@@ -29,7 +29,7 @@ Expo (React Native) con development build, TypeScript estricto y Supabase (Postg
 | Fase | Entregable | Estado |
 | --- | --- | --- |
 | 0 | Setup del repositorio | Hecho |
-| 1 | Descubrimiento de producto | Pendiente |
+| 1 | [Descubrimiento de producto](docs/01-producto.md) | En revisión |
 | 2 | UX: navegación y flujos | Pendiente |
 | 3 | Diseño de interfaz y prototipo navegable | Pendiente |
 | 4 | Arquitectura técnica | Pendiente |
@@ -78,7 +78,7 @@ Expo (React Native) with a development build, strict TypeScript and Supabase (Po
 | Phase | Deliverable | Status |
 | --- | --- | --- |
 | 0 | Repository setup | Done |
-| 1 | Product discovery | Pending |
+| 1 | [Product discovery](docs/01-producto.md) (Spanish) | In review |
 | 2 | UX: navigation and flows | Pending |
 | 3 | UI design and navigable prototype | Pending |
 | 4 | Technical architecture | Pending |
