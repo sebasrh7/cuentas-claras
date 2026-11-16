@@ -8,7 +8,8 @@ App personal de finanzas para Android. Captura movimientos leyendo las notificac
 - Cada fase o feature va en su rama (`phase-1/product-discovery`, `feat/m3-bank-parsers`) con Pull Request hacia `main`. No se hace push directo a `main`.
 - Commits pequeños con Conventional Commits (`feat:`, `fix:`, `docs:`, `chore:`, `test:`, `refactor:`, `ci:`).
 - Toda decisión técnica importante se registra como ADR en `docs/adr/` a partir de `docs/adr/0000-plantilla.md`.
-- Las historias y tareas viven como issues de GitHub, asignadas al milestone de su fase y al tablero del proyecto.
+- Las historias y tareas viven como issues de GitHub, asignadas al milestone de su fase y al tablero del proyecto (https://github.com/users/sebasrh7/projects/1, columnas Backlog / En curso / En revisión / Hecho).
+- Las historias de usuario se definen en `docs/01-producto.md` (HU-01 a HU-18). El issue #N corresponde a la historia HU-N para el MVP (HU-01 a HU-16).
 
 ## Fases
 
