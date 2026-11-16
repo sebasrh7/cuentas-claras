@@ -4,7 +4,7 @@ Aquí se documenta el proceso de Cuentas Claras, fase por fase.
 
 | Documento | Fase | Contenido |
 | --- | --- | --- |
-| `01-producto.md` | 1 | Problema, objetivos, historias de usuario, alcance del MVP y riesgos |
+| [`01-producto.md`](01-producto.md) | 1 | Problema, objetivos, historias de usuario, alcance del MVP y riesgos |
 | `02-ux.md` | 2 | Arquitectura de información, navegación y flujos |
 | `03-diseno.md` | 3 | Sistema de diseño y prototipo |
 | `04-arquitectura.md` | 4 | Componentes, modelo de datos, pipeline y seguridad |
