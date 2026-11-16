@@ -9,7 +9,7 @@ App personal de finanzas para Android. Captura movimientos leyendo las notificac
 - Commits pequeños con Conventional Commits (`feat:`, `fix:`, `docs:`, `chore:`, `test:`, `refactor:`, `ci:`).
 - Toda decisión técnica importante se registra como ADR en `docs/adr/` a partir de `docs/adr/0000-plantilla.md`.
 - Las historias y tareas viven como issues de GitHub, asignadas al milestone de su fase y al tablero del proyecto (https://github.com/users/sebasrh7/projects/1, columnas Backlog / En curso / En revisión / Hecho).
-- Las historias de usuario se definen en `docs/01-producto.md` (HU-01 a HU-18). El issue #N corresponde a la historia HU-N para el MVP (HU-01 a HU-16).
+- Las historias de usuario se definen en `docs/01-producto.md` (HU-01 a HU-18). El issue #N corresponde a la historia HU-N para el MVP (HU-01 a HU-16). HU-17 y HU-18 son posteriores al MVP (label `post-mvp`, issues #18 y #19).
 
 ## Fases
 
@@ -17,6 +17,7 @@ App personal de finanzas para Android. Captura movimientos leyendo las notificac
 | --- | --- |
 | 0 | Setup del repositorio |
 | 1 | Descubrimiento de producto: `docs/01-producto.md` + issues del MVP |
+| 1.5 | Spike del listener de notificaciones (rama `spike/notification-listener`, código desechable) + ADR con lo aprendido |
 | 2 | UX: `docs/02-ux.md` |
 | 3 | Diseño de interfaz: `docs/03-diseno.md`, `docs/design/`, prototipo Expo con mocks |
 | 4 | Arquitectura técnica: `docs/04-arquitectura.md` + ADRs |
@@ -31,6 +32,13 @@ Milestones de la Fase 5: M1 Supabase y datos reales, M2 listener de notificacion
 - **Captura**: módulo nativo con `NotificationListenerService`, filtrado por paquetes de apps bancarias, con cola offline.
 - **Respaldo**: Google Apps Script que lee correos de alerta por etiqueta de Gmail (`scripts/gmail/`).
 - **Calidad**: ESLint + Prettier, Jest, GitHub Actions (lint + typecheck + tests en cada PR).
+
+## Contexto del usuario
+
+- Teléfono: Xiaomi Redmi Note 14, Android 16 (HyperOS). HyperOS cierra servicios en segundo plano con más fuerza que Android puro; no asumir nombres de opciones del sistema, verificarlos en el teléfono.
+- Cuentas: Bancolombia débito (recibe los ingresos), Nu débito + tarjeta de crédito + cajitas, Nequi, efectivo.
+- Presupuesto: quincenas de calendario (1–15 y 16–fin de mes). Reparto mixto: monto fijo para Fijos y Suscripciones, porcentaje del resto para Ahorro y Libre. El sobrante se acumula por defecto.
+- MVP: milestones M1 a M5 más el APK. Suscripciones (M6) y Gmail (M7) van después.
 
 ## Restricciones
 
